@@ -1,0 +1,22 @@
+[project]
+name = "gpu-physics-sim"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "glfw>=2.10.0",
+    "imgui-bundle[glfw]>=1.92.801",
+    "pyopengl>=3.1.10",
+    "pyopengl-accelerate>=3.1.10",
+]
+
+[tool.ruff]
+line-lenght=120
+
+[project.scripts]
+gpu-physics-sim = "gpu_physics_sim:main"
+
+[build-system]
+requires = ["uv_build>=0.11.25,<0.12"]
+build-backend = "uv_build"
