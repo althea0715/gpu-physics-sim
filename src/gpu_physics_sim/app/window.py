@@ -3,7 +3,7 @@
 from typing import Callable
 
 from glfw.GLFW import *  # type: ignore # noqa
-from glfw import _GLFWwindow as GLFWwindow
+from glfw import _GLFWwindow as GLFWwindow # type: ignore
 
 from gpu_physics_sim.logger import get_logger
 
