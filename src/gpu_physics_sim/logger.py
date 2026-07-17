@@ -1,20 +1,23 @@
 import sys
 
-from logging import getLogger, DEBUG, StreamHandler, Logger, Formatter
+import logging
 
 
-def get_logger(name:str) -> Logger:
+def setup_logger():
 
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)
 
-    logger = getLogger(name)
+    if root.handlers:
+        return
 
-    if not logger.handlers:
-        hdlr = StreamHandler(sys.stdout)
-        hdlr.setLevel(DEBUG)
-
-        fmt = Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        hdlr.setFormatter(fmt)
-
-        logger.addHandler(hdlr)
+    hdlr = logging.StreamHandler(sys.stdout)
     
-    return logger
+    fmt = logging.Formatter("%(asctime)s %(levelname)-8s %(name)s: %(message)s")
+    hdlr.setFormatter(fmt)
+
+    root.addHandler(hdlr)
+
+
+def get_logger(name: str) -> logging.Logger:
+    return logging.getLogger(name)
