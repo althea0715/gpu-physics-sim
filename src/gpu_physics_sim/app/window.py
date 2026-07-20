@@ -3,7 +3,7 @@
 from typing import Callable
 
 from glfw.GLFW import *  # type: ignore # noqa
-from glfw import _GLFWwindow as GLFWwindow # type: ignore
+from glfw import _GLFWwindow as GLFWwindow  # type: ignore
 
 from gpu_physics_sim.logger import get_logger
 
@@ -67,11 +67,8 @@ class Window:
 
         glfwTerminate()
 
-
     def set_resize_callback(self, fn: Callable[[int, int], None]):
         self._fn_on_resize = fn
 
     def set_key_callback(self, fn: Callable[[int, int, int, int], None]):
         self._fn_on_key = fn
-
-
