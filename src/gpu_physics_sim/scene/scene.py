@@ -1,7 +1,7 @@
-from gpu_physics_sim.input import InputManager
+
 
 class Scene:
-    def update(self, dt: float, input_manager: InputManager):
+    def update(self, dt: float):
         pass
 
     def get_renderable(self) -> int:

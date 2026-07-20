@@ -1,15 +1,17 @@
-
 from typing import Self
 
 from gpu_physics_sim.logger import get_logger
 
-from gpu_physics_sim.app import Window, Timer
 from gpu_physics_sim.input import InputManager
+from gpu_physics_sim.app import Window, Timer, Action
 from gpu_physics_sim.renderer import Renderer
 from gpu_physics_sim.scene import Scene
 
 
+
+
 logger = get_logger(__name__)
+
 
 class Application:
     def __init__(
@@ -42,7 +44,10 @@ class Application:
 
             self.window.poll_events()
 
-            self.scene.update(dt, self.input_manager)
+            if self.input_manager.is_action_trigger(Action.Quit):
+                self.window.request_close()
+
+            self.scene.update(dt)
 
             self.renderer.begin_frame()
 
@@ -51,3 +56,5 @@ class Application:
             self.renderer.end_frame()
 
             self.window.swap_buffer()
+
+            self.input_manager.clear_action_triggers()
