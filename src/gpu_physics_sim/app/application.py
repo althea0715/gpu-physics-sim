@@ -2,12 +2,9 @@ from typing import Self
 
 from gpu_physics_sim.logger import get_logger
 
-from gpu_physics_sim.input import InputManager
-from gpu_physics_sim.app import Window, Timer, Action
+from gpu_physics_sim.app import Window, Timer, Action, InputManager, Key
 from gpu_physics_sim.renderer import Renderer
 from gpu_physics_sim.scene import Scene
-
-
 
 
 logger = get_logger(__name__)
@@ -28,6 +25,8 @@ class Application:
 
         self.window.set_resize_callback(self.renderer.on_resize)
         self.window.set_key_callback(self.input_manager.on_key)
+
+        self.input_manager.bind(Key.ESC, Action.Quit)
 
     def __enter__(self) -> Self:
         return self

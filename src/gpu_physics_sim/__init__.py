@@ -1,11 +1,9 @@
 from gpu_physics_sim.logger import setup_logger
-from gpu_physics_sim.input import InputManager
 
 from gpu_physics_sim.renderer import Renderer
 
 from gpu_physics_sim.scene import Scene
-from gpu_physics_sim.app import Application, Window
-
+from gpu_physics_sim.app import Application, Window, InputManager
 
 
 def main():
@@ -17,8 +15,6 @@ def main():
     window = Window("GPU Physics Sim", 400, 300)
     renderer = Renderer()
     scene = Scene()
-
-    
 
     with Application(window, renderer, scene, input_manager) as app:
         app.run()

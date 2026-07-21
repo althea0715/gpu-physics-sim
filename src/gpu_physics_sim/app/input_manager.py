@@ -12,14 +12,14 @@ logger = get_logger(__name__)
 
 class InputManager:
     def __init__(self):
-        self._keys: dict[Key, bool] = defaultdict(bool)
-        self._key_binding: dict[Key, Action] = {}
+        self._keys: dict[int, bool] = defaultdict(bool)
+        self._key_binding: dict[int, Action] = {}
         self._key_trigger: set[Action] = set()
 
     def bind(self, key: Key, action: Action):
         self._key_binding[key] = action
 
-    def on_key(self, key: Key, action: bool):
+    def on_key(self, key: int, action: bool):
 
         if action:
             self._keys[key] = True

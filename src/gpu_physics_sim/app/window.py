@@ -6,12 +6,9 @@ from glfw.GLFW import *  # type: ignore # noqa
 from glfw import _GLFWwindow as GLFWwindow  # type: ignore
 
 from gpu_physics_sim.logger import get_logger
-from gpu_physics_sim.app.keymap import Key, get_key_map, is_pressed
 
 
 logger = get_logger(__name__)
-
-
 
 
 class Window:
@@ -41,7 +38,7 @@ class Window:
         glfwSetKeyCallback(self.window, self._key_callback)
 
         self._fn_on_resize: Callable[[int, int], None] | None = None
-        self._fn_on_key: Callable[[Key, bool], None] | None = None
+        self._fn_on_key: Callable[[int, bool], None] | None = None
 
     def _framebuffer_size_callback(self, _: GLFWwindow, width: int, height: int):
         self.width = width
@@ -52,12 +49,13 @@ class Window:
 
     def _key_callback(self, _: GLFWwindow, key: int, code: int, action: int, mods: int):
         if self._fn_on_key:
-            self._fn_on_key(get_key_map(key), is_pressed(action))
+            self._fn_on_key(key, action == GLFW_PRESS)
 
     def should_close(self) -> bool:
         return glfwWindowShouldClose(self.window)
 
     def request_close(self):
+        logger.info("request_close")
         glfwSetWindowShouldClose(self.window, True)
 
     def poll_events(self):
@@ -76,5 +74,5 @@ class Window:
     def set_resize_callback(self, fn: Callable[[int, int], None]):
         self._fn_on_resize = fn
 
-    def set_key_callback(self, fn: Callable[[Key, bool], None]):
+    def set_key_callback(self, fn: Callable[[int, bool], None]):
         self._fn_on_key = fn
