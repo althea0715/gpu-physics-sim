@@ -1,12 +1,14 @@
-# ruff: noqa: F405
+# ruff: F405
 
 import numpy as np
 
 from ctypes import c_uint32, byref
 
-from OpenGL.GL import *  # type: ignore # noqa
+from OpenGL.GL import *  # type: ignore
 
 from gpu_physics_sim.logger import get_logger
+
+from gpu_physics_sim.shader.shader import VertexShader
 
 logger = get_logger(__name__)
 
@@ -15,12 +17,13 @@ class Renderer:
     def __init__(self):
         logger.info(glGetString(GL_VERSION))
 
+        v_shader = VertexShader.from_file("./shader/basic.vs")
+
     def begin_frame(self):
         glClearColor(0.3, 0.3, 0.3, 1.0)
         glClear(GL_COLOR_BUFFER_BIT)
 
     def render(self, renderable: int):
-        
         # fmt: off
         vertex = np.array(
             [
@@ -31,7 +34,6 @@ class Renderer:
             dtype=np.float32,
         )
         # fmt: on
-
 
         vbo = c_uint32(0)
         vao = c_uint32(0)
@@ -48,11 +50,9 @@ class Renderer:
 
         glBindVertexArray(vao)
         glDrawArrays(GL_TRIANGLES, 0, 3)
-        
-        
+
         glDeleteVertexArrays(1, vao)
         glDeleteBuffers(1, vbo)
-        
 
     def end_frame(self):
         pass
